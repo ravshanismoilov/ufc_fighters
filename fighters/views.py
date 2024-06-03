@@ -25,3 +25,14 @@ class CategoryDetailFighter(View):
             'categoryname': categoryname
         }
         return render(request, 'fighter/fighters.html', context=context)
+
+
+class FighterDetail(View):
+    def get(self, request, pk):
+        fighter = Fighter.objects.get(pk=pk)
+        division = Category.objects.filter(pk=pk)
+        context = {
+            'fighter': fighter,
+            'division': division
+        }
+        return render(request, 'fighter_detail.html', context=context)

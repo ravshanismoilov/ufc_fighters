@@ -8,10 +8,11 @@
     <h1> {{ categoryname.name }} division </h1>
 
     {% for fighter in fighters %}
-        <img src="{{ fighter.image.url }}"><br>
+        <img src="{{ fighter.photo.url }}" alt="image" height="500px"><br>
         {{ fighter.first_name }}
         {{ fighter.last_name }}<br>
-        {{ fighter.date_birth }}<hr>
+        {{ fighter.date_birth }}<br>
+        <a href="{% url 'fighter-detail' fighter.pk %}"> for more </a><hr>
     {% endfor %}
 </body>
 </html>

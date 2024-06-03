@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fighters</title>
+</head>
+<body>
+    <h1> {{ categoryname.name }} division </h1>
+
+    {% for fighter in fighters %}
+        <img src="{{ fighter.image.url }}"><br>
+        {{ fighter.first_name }}
+        {{ fighter.last_name }}<br>
+        {{ fighter.date_birth }}<hr>
+    {% endfor %}
+</body>
+</html>

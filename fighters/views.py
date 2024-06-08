@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from .models import Category, Fighter
+from .forms import CreateFighterForm
 
 
 def get_home(request):
@@ -9,7 +10,7 @@ def get_home(request):
 
 class CategoryFighters(View):
     def get(self, request):
-        categories = Category.objects.all()
+        categories = Category.objects.all().order_by('-id')
         context = {
             'categories': categories
         }
@@ -35,4 +36,23 @@ class FighterDetail(View):
             'fighter': fighter,
             'division': division
         }
-        return render(request, 'fighter_detail.html', context=context)
+        return render(request, 'fighter/fighter_detail.html', context=context)
+
+
+class CreateFighter(View):
+    def get(self, request):
+        create_form = CreateFighterForm()
+        context = {
+            'create_form': create_form
+        }
+        return render(request, 'fighter/add_fighter.html', context=context)
+
+    def post(self, request):
+        create_form = CreateFighterForm(request.POST)
+        if create_form.is_valid():
+            create_form.save()
+            return redirect('category-fighter')
+        context = {
+            'create_form': create_form
+        }
+        return render(request, 'fighter/add_fighter.html', context=context)
